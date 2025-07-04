@@ -4,7 +4,7 @@
 
 // Node structure for adjacency list
 struct Node {
-    int dest;
+    int vertex;
     struct Node* next;
 };
 
@@ -35,7 +35,7 @@ struct Stack {
 // Create a new adjacency list node
 struct Node* createNode(int dest) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->dest = dest;
+    newNode->vertex = dest;
     newNode->next = NULL;
     return newNode;
 }
@@ -67,7 +67,7 @@ void printGraph(struct Graph* graph) {
         struct Node* pCrawl = graph->array[v].head;
         printf("Adjacency list of vertex %d\n head", v);
         while (pCrawl) {
-            printf(" -> %d", pCrawl->dest);
+            printf(" -> %d", pCrawl->vertex);
             pCrawl = pCrawl->next;
         }
         printf("\n");
@@ -119,7 +119,7 @@ void BFS(struct Graph* graph, int start) {
 
         struct Node* temp = graph->array[current].head;
         while (temp) {
-            int adj = temp->dest;
+            int adj = temp->vertex;
             if (!visited[adj]) {
                 visited[adj] = true;
                 enqueue(q, adj);
@@ -141,7 +141,7 @@ void DFSUtil(struct Graph* graph, int v, bool* visited) {
 
     struct Node* temp = graph->array[v].head;
     while (temp) {
-        int adj = temp->dest;
+        int adj = temp->vertex;
         if (!visited[adj])
             DFSUtil(graph, adj, visited);   //recursion (stack)
         temp = temp->next;
